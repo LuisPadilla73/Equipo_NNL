@@ -18,7 +18,7 @@
 #define PIT_DISPLAY_CHANNEL kPIT_Chnl_1
 #define PIT_ALARM_CHANNEL kPIT_Chnl_2
 
-#define PIT_WATCH_HANDLER   PIT0_IRQHandler
+#define PIT_1ms_HANDLER   PIT0_IRQHandler
 #define PIT_IRQ_ID        PIT0_IRQn
 
 #define PIT_DISPLAY_HANDLER PIT1_IRQHandler

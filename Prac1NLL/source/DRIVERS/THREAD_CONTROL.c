@@ -13,7 +13,7 @@ ThreadObj ThreadTable[]= { //felxible, se puede tener más threads
 };
 
 
-void program_init(){
+void program_init(){//
 	GPIO_BOARD_INIT();
 	PIT_init();
 	set_callback_PIT((void*)ThreadTable);
