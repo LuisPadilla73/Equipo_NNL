@@ -10,6 +10,7 @@
  *  Created on: Feb 27, 2025
  *      Author: DOOMSLAYER
  */
+
 #include "PIT.h"
 void (*ptr_func) (void) = NULL;
 uint16_t (*sine_func) (void) = NULL;
