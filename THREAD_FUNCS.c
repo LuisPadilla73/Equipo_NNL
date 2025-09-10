@@ -6,11 +6,21 @@
  */
 
 #include "THREAD_FUNCS.h"
+#include "UART.h"
 
 uint8_t UART_flag_array[];
 
 void Thread2ms(void){
-
+	 if (UART_GetFlag(UART_FLAG_TURN_ON)) {
+	        /* Prender LED */
+	        UART_SendString((uint8_t *)"LED ON\r\n");
+	        UART_ClearFlag(UART_FLAG_TURN_ON);
+	    }
+	    if (UART_GetFlag(UART_FLAG_TURN_OFF)) {
+	        /* Apagar LED*/
+	        UART_SendString((uint8_t *)"LED OFF\r\n");
+	        UART_ClearFlag(UART_FLAG_TURN_OFF);
+	    }
 
 }
 void Thread10ms(void){

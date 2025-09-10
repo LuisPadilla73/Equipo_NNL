@@ -5,6 +5,7 @@
  *      Author: Gabriel
  */
 #include "THREAD_CONTROL.h"
+#include "UART.h"
 
 ThreadObj ThreadTable[]= { //felxible, se puede tener más threads
 		{Thread2ms,STANDBY,2,0} ,// función, estados, rate de 2ms
@@ -15,6 +16,7 @@ ThreadObj ThreadTable[]= { //felxible, se puede tener más threads
 
 void program_init(){//
 	GPIO_BOARD_INIT();
+	UART_init();
 	PIT_init();
 	set_callback_PIT((void*)ThreadTable);
 
