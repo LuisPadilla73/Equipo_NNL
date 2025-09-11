@@ -31,6 +31,8 @@ uint16_t ADC_Read(void){
 
 int ADC_init(void)
 {
+
+
     /*
      * adc16ConfigStruct.referenceVoltageSource = kADC16_ReferenceVoltageSourceVref;
      * adc16ConfigStruct.clockSource = kADC16_ClockSourceAsynchronousClock;
