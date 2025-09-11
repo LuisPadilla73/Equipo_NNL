@@ -42,6 +42,8 @@ bool UART_GetFlag(uart_flags_t flag);
 void UART_ClearFlag(uart_flags_t flag);
 // Enviar una cadena por UART para enviar respuestas
 void UART_SendString(const uint8_t *string);
+// Para enviar temperatura
+void UART_SendTemperature(float temperature)
 
 uint8_t UART_GetTime() ;
 #endif /* DRIVERS_UART_H_ */

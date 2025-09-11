@@ -82,15 +82,15 @@ void Thread10ms(void){
 			index = 0;
 		}
 
-
+		//promedio.
+		temp_promedio = (temp_buffer[0]+temp_buffer[1]+temp_buffer[2]+temp_buffer[3]+
+				temp_buffer[4]) / 5.0f;
 
 	}
 
-
-	// promedio
-
 	if (UART_GetFlag(UART_FLAG_TEMP)){
 		//mandar promedio de temp
+		UART_SendTemperature(temp_promedio);
 		UART_ClearFlag(UART_FLAG_HELP);
 		}
 }

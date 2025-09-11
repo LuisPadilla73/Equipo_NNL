@@ -69,6 +69,22 @@ void UART_SendString(const uint8_t *string) {
 	 UART_WriteBlocking(DEMO_UART, string, strlen((const char *)string));
 }
 
+void UART_SendTemperature(float temperature) {
+    uint8_t temp_msg[] = "Temp: XX.X C\r\n";
+
+    // Convertir a enteros para evitar floats
+    uint16_t temp_int = (uint16_t)temperature;           // Parte entera: 25
+    uint16_t temp_dec = (uint16_t)((temperature - temp_int) * 10);  // Decimal: 3 (de 25.3)
+
+    // Llenar los caracteres XX.X
+    temp_msg[6] = '0' + (temp_int / 10);  // Decenas: 2
+    temp_msg[7] = '0' + (temp_int % 10);  // Unidades: 5
+    temp_msg[9] = '0' + temp_dec;         // Decimal: 3
+
+    // Enviar mensaje
+    UART_SendString(temp_msg);
+}
+
 /* La ISR de la UART */
 void DEMO_UART_IRQHandler(void) {
     uint8_t data;
