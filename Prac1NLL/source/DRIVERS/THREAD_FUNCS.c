@@ -46,9 +46,7 @@ void Thread2ms(void){
 		UART_ClearFlag(UART_FLAG_TOGGLE);
 	}
 
-	if (UART_GetFlag(UART_FLAG_TEMP)){
 
-	}
 
 	if (UART_GetFlag(UART_FLAG_HELP)){
 		UART_Menu();
@@ -65,8 +63,18 @@ void Thread10ms(void){
 	counter++;
 
 	if(counter == 2){
+		//Temp = ADC_Read();
+		// conversion de adc a temp
+
 
 	}
+
+	// arreglo circular
+	// promedio
+	if (UART_GetFlag(UART_FLAG_TEMP)){
+		//mandar promedio de temp
+		UART_ClearFlag(UART_FLAG_HELP);
+		}
 }
 void Thread5ms(void){
 	uint8_t inputSW2= GPIO_PinRead(GPIOC, SW2);

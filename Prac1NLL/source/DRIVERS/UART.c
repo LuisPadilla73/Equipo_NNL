@@ -95,7 +95,7 @@ void DEMO_UART_IRQHandler(void) {
                 uart_flags[UART_FLAG_TURN_ON] = true;
             } else if (strcmp((char *)uart_rx_buffer, "Turn Off") == 0) {
                 uart_flags[UART_FLAG_TURN_OFF] = true;
-            } else if (strncmp((char *)uart_rx_buffer, "Toggle ", 7) == 0) {
+            } else if (strncmp((char *)uart_rx_buffer, "Toggle", 7) == 0) {
             	 UART_SendString(x_time_str);
             	 flag = 1;
                 /* Procesar "Toggle 5"*/
