@@ -127,6 +127,15 @@ void redToggle(){
 	  GPIO_PortToggle(GPIOB, 1u << RED);
 }
 
+void redOFF(){
+	  GPIO_PortSet(GPIOB, 1u << RED);
+}
+
+
+void redON(){
+	  GPIO_PortClear(GPIOB, 1u << RED);
+}
+
 void greenToggle(){
 	GPIO_PortToggle(GPIOE, 1u << GREEN);
 }
