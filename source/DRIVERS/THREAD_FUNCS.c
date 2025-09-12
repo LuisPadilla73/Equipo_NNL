@@ -92,6 +92,7 @@ void Thread10ms(void){
 	if (UART_GetFlag(UART_FLAG_TEMP)){
 		//mandar promedio de temp
 		UART_SendTemperature(temp_promedio);
+
 		UART_ClearFlag(UART_FLAG_HELP);
 		}
 }

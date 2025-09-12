@@ -17,6 +17,7 @@
 #include "uart.h"
 #include "fsl_uart.h"
 #include "board.h"
+#include "ADC.h"
 
 /* Arreglo global de flags */
 
