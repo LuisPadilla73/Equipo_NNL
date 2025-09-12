@@ -25,6 +25,7 @@ void Thread2ms(void){
 			redON();
 			UART_ClearFlag(UART_FLAG_TURN_ON);
 		}
+
 	if (UART_GetFlag(UART_FLAG_TURN_OFF)) {
 		/* Apagar LED*/
 		UART_SendString((uint8_t *)"LED OFF\r\n");
@@ -88,8 +89,9 @@ void Thread10ms(void){
 
 	if(counter == 2){
 		temp = ADC_Read();
-		float voltage = temp * ADC_TO_VOLTAGE;
-		float temperature = voltage / VOLTAGE_TO_TEMP;
+
+		uint16_t voltage = temp * ADC_TO_VOLTAGE;
+		uint16_t temperature = voltage / VOLTAGE_TO_TEMP;
 
 		sum -= buffer[current_Index];
 
@@ -113,7 +115,7 @@ void Thread10ms(void){
 				send_temp[1]= ascii_meas[1];
 				send_temp[2]= ascii_meas[2];
 		UART_SendString(send_temp);
-		UART_ClearFlag(UART_FLAG_HELP);
+		UART_ClearFlag(UART_FLAG_TEMP);
 		}
 }
 

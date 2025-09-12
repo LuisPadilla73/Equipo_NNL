@@ -17,12 +17,13 @@
 #define VCC              3.3     // Voltaje de referencia (asumimos 3.3V)
 #define ADC_TO_VOLTAGE   (VCC / ADC_MAX_VALUE)  // Conversión de valor ADC a voltaje
 #define VOLTAGE_TO_TEMP (3.3f / 50.0f)
-#define DECIMAL_TO_ASCII(num) ((uint8_t)((num) + '0'))
+
 
 void Thread2ms(void);
 void Thread10ms(void);
 void Thread5ms(void);
 void ThreadIddle(void);
+uint8_t* decimalToAscii(int num);
 
 typedef enum{
 	init = 0,

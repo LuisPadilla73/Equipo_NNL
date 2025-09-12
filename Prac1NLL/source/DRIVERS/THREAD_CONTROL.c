@@ -19,6 +19,7 @@ void program_init(){//
 	set_toggle_flag();
 	PIT_init();
 	set_callback_PIT((void*)ThreadTable);
+	ADC_init();
 	UART_Menu();
 
 

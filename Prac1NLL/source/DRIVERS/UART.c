@@ -26,7 +26,7 @@ static volatile bool uart_flags[UART_FLAG_COUNT] = {false};
 static uint8_t uart_rx_buffer[64];
 static uint16_t uart_rx_index = 0;
 
-static uint8_t menu[]="Menu Write: \r\n Led On \r\n Led Off \r\n Toggle \r\n Temp \r\n Help";
+static uint8_t menu[]="Menu Write: \r\n Turn On \r\n Turn Off \r\n Toggle \r\n Temp \r\n Help \r\n";
 static uint8_t x_time_str[]= "Insert x seconds (1-5) between toggle ";
 
 volatile uint8_t time = 0;
