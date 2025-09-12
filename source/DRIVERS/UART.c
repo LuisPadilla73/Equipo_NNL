@@ -70,20 +70,48 @@ void UART_SendString(const uint8_t *string) {
 	 UART_WriteBlocking(DEMO_UART, string, strlen((const char *)string));
 }
 
-void UART_SendTemperature(float temperature) {
-    uint8_t temp_msg[] = "Temp: XX.X C\r\n";
+void UART_SendTemperature(uint16_t temperature) {
+    uint8_t buffer[16]; // Buffer para formatear el mensaje
+    uint8_t i = 0;
 
-    // Convertir a enteros para evitar floats
-    uint16_t temp_int = (uint16_t)temperature;           // Parte entera: 25
-    uint16_t temp_dec = (uint16_t)((temperature - temp_int) * 10);  // Decimal: 3 (de 25.3)
+    // Convertir temperatura a partes entera y decimal
+    uint8_t entera = temperature / 100;
+    uint8_t decimal = temperature % 100;
 
-    // Llenar los caracteres XX.X
-    temp_msg[6] = '0' + (temp_int / 10);  // Decenas: 2
-    temp_msg[7] = '0' + (temp_int % 10);  // Unidades: 5
-    temp_msg[9] = '0' + temp_dec;         // Decimal: 3
+    // Formatear el mensaje manualmente
+    buffer[i++] = 'T';
+    buffer[i++] = 'E';
+    buffer[i++] = 'M';
+    buffer[i++] = 'P';
+    buffer[i++] = ':';
 
-    // Enviar mensaje
-    UART_SendString(temp_msg);
+    // Parte entera (si tiene 3 dígitos)
+    if (entera >= 100) {
+        buffer[i++] = '0' + (entera / 100);
+        entera %= 100;
+    }
+    // Parte entera (si tiene 2 dígitos)
+    if (entera >= 10) {
+        buffer[i++] = '0' + (entera / 10);
+        entera %= 10;
+    }
+    // Último dígito de la parte entera
+    buffer[i++] = '0' + entera;
+
+    // Punto decimal
+    buffer[i++] = '.';
+
+    // Parte decimal (2 dígitos)
+    buffer[i++] = '0' + (decimal / 10);
+    buffer[i++] = '0' + (decimal % 10);
+
+    // Unidad y fin de línea
+    buffer[i++] = 'C';
+    buffer[i++] = '\r';
+    buffer[i++] = '\n';
+
+    // Enviar el mensaje formateado
+    UART_WriteBlocking(DEMO_UART, buffer, i);
 }
 
 /* La ISR de la UART */

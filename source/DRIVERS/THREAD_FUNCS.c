@@ -62,39 +62,44 @@ void Thread2ms(void){
 void Thread10ms(void){
 	static uint8_t counter = 0;
 	static uint16_t adc_value = 0;
-	static float temp = 0.0f;
+	static uint16_t temp = 0;
 	counter++;
 
-	// arreglo circular
-	static float temp_buffer[5] = {0, 0, 0, 0, 0};
-    static uint8_t index = 0;  // Posición actual en el arreglo
-    // promedio
-    static float temp_promedio = 0.0f;
+	// Arreglo circular para temperaturas enteras
+	static uint16_t temp_buffer[5] = {0, 0, 0, 0, 0};
+    static uint8_t index = 0;
+
+    // Promedio como entero
+    static uint16_t temp_promedio = 0;
 
 	if(counter == 2){
+		counter = 0;  // Reset del contador
 		adc_value = ADC_Read();
-		temp = (float) adc_value * 100.0f / 4095.0f;
 
-		/*Guaradar lectura en posición actual*/
+		// Conversión a entero: (adc_value * 100) / 4095
+		// Para evitar overflow, se puede hacer la división primero si es necesario (mejora sugerida por claudio)
+		temp = (uint16_t)((uint32_t)adc_value * 100 / 4095);
+
+		// Guardar lectura en posición actual
 		temp_buffer[index] = temp;
-		/*Mover siguiente posición*/
+
+		// Mover a siguiente posición
 		index++;
 		if(index >= 5){
 			index = 0;
 		}
 
-		//promedio.
-		temp_promedio = (temp_buffer[0]+temp_buffer[1]+temp_buffer[2]+temp_buffer[3]+
-				temp_buffer[4]) / 5.0f;
-
+		// Calcular promedio con aritmética entera
+		uint32_t suma = (uint32_t)temp_buffer[0] + temp_buffer[1] + temp_buffer[2] +
+						temp_buffer[3] + temp_buffer[4];
+		temp_promedio = (uint16_t)(suma / 5);
 	}
 
 	if (UART_GetFlag(UART_FLAG_TEMP)){
-		//mandar promedio de temp
+		// Mandar promedio de temperatura
 		UART_SendTemperature(temp_promedio);
-
-		UART_ClearFlag(UART_FLAG_HELP);
-		}
+		UART_ClearFlag(UART_FLAG_TEMP);
+	}
 }
 void Thread5ms(void){
 	uint8_t inputSW2= GPIO_PinRead(GPIOC, SW2);
