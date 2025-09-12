@@ -63,6 +63,7 @@ void Thread10ms(void){
 	static uint8_t counter = 0;
 	static uint16_t adc_value = 0;
 	static uint16_t temp = 0;
+
 	counter++;
 
 	// Arreglo circular para temperaturas enteras
@@ -94,12 +95,24 @@ void Thread10ms(void){
 						temp_buffer[3] + temp_buffer[4];
 		temp_promedio = (uint16_t)(suma / 5);
 	}
-	temperature = temp_promedio +'0';
 	if (UART_GetFlag(UART_FLAG_TEMP)){
+		// Buffer para convertir el número a string de 2 dígitos
+		static uint8_t temp_string[3]; // 2 dígitos + terminador nulo
+
+		// Extraer las decenas y unidades
+		uint8_t decenas = temp_promedio / 10;  // Primer dígito
+		uint8_t unidades = temp_promedio % 10; // Segundo dígito
+
+		// Convertir cada dígito a ASCII sumando '0'
+		temp_string[0] = decenas + '0';
+		temp_string[1] = unidades + '0';
+		temp_string[2] = '\0'; // Terminador nulo
+
 		// Mandar promedio de temperatura
-		UART_SendString(&temperature);
+		UART_SendString(temp_string);
 		UART_ClearFlag(UART_FLAG_TEMP);
 	}
+
 }
 void Thread5ms(void){
 	uint8_t inputSW2= GPIO_PinRead(GPIOC, SW2);
