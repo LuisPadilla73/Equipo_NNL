@@ -48,6 +48,8 @@ void blueToggle();
 void yellowToggle();
 void cianToggle();
 void magentaToggle();
+void redOFF();
+void redON();
 
 
 #endif /* DRIVERS_GPIO_H_ */

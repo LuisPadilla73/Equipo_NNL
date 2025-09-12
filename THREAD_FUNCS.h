@@ -10,6 +10,8 @@
 #include "thread_struct.h"
 #include "GPIO.h"
 #include "ADC.h"
+#include "UART.h"
+#include "PIT.h"
 
 void Thread2ms(void);
 void Thread10ms(void);

@@ -6,7 +6,7 @@
  */
 
 /**
- * @file    PRACTICA1.c
+ * @file    Prac1NLL.c
  * @brief   Application entry point.
  */
 #include <stdio.h>

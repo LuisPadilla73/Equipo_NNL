@@ -17,6 +17,7 @@ uint16_t (*sine_func) (void) = NULL;
 void (*DISPLAY_func) (void) = NULL;
 
 static ThreadObj* ThreadTable = NULL; // Apuntador global estático
+uint8_t *toggle = NULL;
 
 
 void set_callback_PIT(void* ptr) {
@@ -29,6 +30,11 @@ void set_PIT1_callback(void * ptr) {
 
 void set_PIT2_callback(void * ptr) {
 	sine_func = ptr;
+}
+
+void get_PIT_toggle_CB (uint8_t
+		*ptr){
+	toggle = ptr;
 }
 
 
@@ -71,20 +77,11 @@ void PIT_1ms_HANDLER(void)
 }
 
 
-void PIT_DISPLAY_HANDLER(void) {
-    PIT_ClearStatusFlags(DEMO_PIT_BASEADDR, PIT_DISPLAY_CHANNEL, kPIT_TimerFlag);
+void PIT_TOGGLE_COUNT(void) {
+    PIT_ClearStatusFlags(DEMO_PIT_BASEADDR, PIT_TOGGLE_CHANNEL, kPIT_TimerFlag);
+    *toggle = 1;
 
-    static uint8_t counter = 0;
-
-        if(counter ==  1){
-        	alarmflag = 1;
-        	counter = 0;
-        }else{
-        	alarmflag = 0;
-        	counter++;
-        }
-
-        __DSB();
+	__DSB();
 }
 
 void PIT_ALARM_HANDLER(void){
@@ -122,7 +119,7 @@ void PIT_init() {
 
 		/* Enable at the NVIC */
 	    EnableIRQ(PIT_IRQ_ID);
-//	    EnableIRQ(PIT1_IRQ_ID);
+	    EnableIRQ(PIT1_IRQ_ID);
 //	    EnableIRQ(PIT2_IRQ_ID);
 
 

@@ -1,6 +1,13 @@
 /*
  * UART.h
  *
+ *  Created on: 11 sep. 2025
+ *      Author: Gabriel
+ */
+
+/*
+ * UART.h
+ *
  *  Created on: 9 sept 2025
  *      Author: luisg
  */
@@ -36,4 +43,7 @@ void UART_ClearFlag(uart_flags_t flag);
 // Enviar una cadena por UART para enviar respuestas
 void UART_SendString(const uint8_t *string);
 
+void UART_SendTemperature(float temperature);
+
+uint8_t UART_GetTime() ;
 #endif /* DRIVERS_UART_H_ */

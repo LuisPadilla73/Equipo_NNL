@@ -19,6 +19,8 @@
 #include "clock_config.h"
 #include "fsl_debug_console.h"
 #include "THREAD_FUNCS.h"
+#include "UART.h"
+
 
 void  program_init();
 
