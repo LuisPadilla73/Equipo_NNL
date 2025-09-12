@@ -94,10 +94,10 @@ void Thread10ms(void){
 						temp_buffer[3] + temp_buffer[4];
 		temp_promedio = (uint16_t)(suma / 5);
 	}
-
+	temperature = temp_promedio +'0';
 	if (UART_GetFlag(UART_FLAG_TEMP)){
 		// Mandar promedio de temperatura
-		UART_SendTemperature(temp_promedio);
+		UART_SendString(&temperature);
 		UART_ClearFlag(UART_FLAG_TEMP);
 	}
 }
